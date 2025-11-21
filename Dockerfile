@@ -4,7 +4,7 @@
 FROM golang:alpine as build
 WORKDIR /build
 
-RUN apk add --no-cache make
+RUN apk add --no-cache make ca-certificates
 COPY go.sum go.mod Makefile /build/
 RUN \
 	--mount=type=cache,target=/root/.cache \
@@ -18,12 +18,11 @@ RUN \
 	make
 
 # runtime image
-FROM alpine:3.22
-RUN apk add --no-cache ca-certificates
+FROM scratch
+COPY --from=build /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
 COPY --from=build /build/vault-unseal /usr/local/bin/vault-unseal
 
 # runtime params
 WORKDIR /
-ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 ENV LOG_JSON=true
 CMD ["/usr/local/bin/vault-unseal"]

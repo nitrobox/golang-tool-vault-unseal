@@ -18,10 +18,8 @@ RUN \
 	make
 
 # runtime image
-FROM scratch
+FROM busybox:uclibc
 COPY --from=build /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
-COPY --from=build /bin/busybox /bin/busybox
-RUN ["/bin/busybox", "--install", "/bin"]
 COPY --from=build /build/vault-unseal /usr/local/bin/vault-unseal
 
 # runtime params

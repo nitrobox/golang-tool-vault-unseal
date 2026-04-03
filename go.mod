@@ -1,6 +1,6 @@
 module github.com/lrstanley/vault-unseal
 
-go 1.24
+go 1.24.0
 
 toolchain go1.24.4
 
@@ -15,7 +15,7 @@ require (
 
 require (
 	github.com/cenkalti/backoff/v4 v4.3.0 // indirect
-	github.com/go-jose/go-jose/v4 v4.1.0 // indirect
+	github.com/go-jose/go-jose/v4 v4.1.4 // indirect
 	github.com/go-logfmt/logfmt v0.6.0 // indirect
 	github.com/go-test/deep v1.0.7 // indirect
 	github.com/hashicorp/errwrap v1.1.0 // indirect
